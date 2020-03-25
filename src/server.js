@@ -21,5 +21,13 @@ const io = socketIO.listen(server)
 
 let sockets = []
 io.on('connection', socket => {
-  sockets.push(socket.id)
+  socket.on('newMessage', ({ message }) => {
+    socket.broadcast.emit('messageNotif', {
+      message,
+      nickname: socket.nickname || 'null'
+    })
+  })
+  socket.on('setNickname', ({ nickname }) => {
+    socket.nickname = nickname
+  })
 })
