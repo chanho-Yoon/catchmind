@@ -9,7 +9,9 @@
   "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "babel-watch": "^7.0.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "pug": "^2.0.4",
     "socket.io": "^2.3.0"
   },
@@ -17,6 +19,8 @@
     "dev:server": "babel-watch --watch views src/server.js"
   },
   "devDependencies": {
-    "babel-watch": "^7.0.0"
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0"
   }
 }
