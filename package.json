@@ -10,26 +10,26 @@
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.3",
-    "babel-watch": "^7.0.0",
-    "del": "^5.1.0",
+    "babelify": "^10.0.0",
+    "del": "^4.1.0",
     "eslint": "^5.16.0",
     "express": "^4.16.4",
     "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^6.0.0",
     "gulp-browserify": "^0.5.1",
-    "gulp-csso": "^4.0.1",
+    "gulp-csso": "^3.0.1",
     "gulp-sass": "^4.0.2",
     "morgan": "^1.9.1",
     "node-sass": "^4.11.0",
+    "nodemon": "^1.18.11",
     "pug": "^2.0.3",
     "socket.io": "^2.2.0"
   },
   "scripts": {
-    "dev:server": "babel-watch --watch views src/server.js",
+    "dev:server": "nodemon --exec babel-node src/server.js --ignore assets/ --ignore src/static",
     "dev:assets": "gulp"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.0",
     "prettier": "^1.16.4"
