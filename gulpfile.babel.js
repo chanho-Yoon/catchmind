@@ -1,11 +1,11 @@
-import gulp from 'gulp'
-import sass from 'gulp-sass'
-import autoprefixer from 'gulp-autoprefixer'
-import minifyCSS from 'gulp-csso' //코드 일자정렬
-import del from 'del'
-import browserify from 'gulp-browserify'
-import babelify from 'babelify'
-sass.compiler = require('node-sass')
+import gulp from 'gulp';
+import sass from 'gulp-sass';
+import autoprefixer from 'gulp-autoprefixer';
+import minifyCSS from 'gulp-csso'; //코드 일자정렬
+import del from 'del';
+import browserify from 'gulp-browserify';
+import babelify from 'babelify';
+sass.compiler = require('node-sass');
 
 const paths = {
   styles: {
@@ -18,8 +18,8 @@ const paths = {
     dest: 'src/static/js',
     watch: 'assets/js/**/*.js'
   }
-}
-const clean = () => del(['src/static'])
+};
+const clean = () => del(['src/static']);
 
 const styles = () =>
   gulp
@@ -32,7 +32,7 @@ const styles = () =>
       })
     )
     .pipe(minifyCSS())
-    .pipe(gulp.dest(paths.styles.dest))
+    .pipe(gulp.dest(paths.styles.dest));
 
 const js = () =>
   gulp
@@ -46,15 +46,15 @@ const js = () =>
         ]
       })
     )
-    .pipe(gulp.dest(paths.js.dest))
+    .pipe(gulp.dest(paths.js.dest));
 
 const watchFiles = () => {
-  gulp.watch(paths.styles.watch, styles)
-  gulp.watch(paths.js.watch, js)
-}
+  gulp.watch(paths.styles.watch, styles);
+  gulp.watch(paths.js.watch, js);
+};
 
-const dev = gulp.series(clean, styles, js, watchFiles)
+const dev = gulp.series(clean, styles, js, watchFiles);
 
-export const build = gulp.series(clean, styles, js)
+export const build = gulp.series(clean, styles, js);
 
-export default dev
+export default dev;
