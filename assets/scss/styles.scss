@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
-@import 'variables';
-@import 'reset';
+@import 'variables.scss';
+@import 'reset.scss';
+@import 'login.scss';
 
 * {
   box-sizing: border-box;
