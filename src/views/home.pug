@@ -7,7 +7,10 @@ html(lang="ko")
 
     title Catch Mind
   body
-    h1 hello
-
+    .loginBox
+      form#jsLogin
+        input(placeholder="닉네임 입력", type="text")
+    .gameContainer#jsGame
+      h1 로그인 중
     script(src="/socket.io/socket.io.js")
     script(src="/js/main.js")
