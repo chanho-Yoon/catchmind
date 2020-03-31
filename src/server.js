@@ -3,6 +3,7 @@ import express from 'express';
 import socketIO from 'socket.io';
 import morgan from 'morgan';
 import socketController from './socketController';
+import events from './events';
 
 const PORT = 4000;
 const app = express();
@@ -12,12 +13,11 @@ app.use(morgan('dev'));
 app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'static')));
 
-app.get('/', (req, res) => res.render('home'));
+app.get('/', (req, res) => res.render('home', { events: JSON.stringify(events) }));
 
 const handleListening = () => console.log(`✅ Server running: http://localhost:${PORT}`);
 const server = app.listen(PORT, handleListening);
 // socket io
 const io = socketIO.listen(server);
 
-let sockets = [];
-io.on('connection', socket => socketController);
+io.on('connection', socket => socketController(socket));

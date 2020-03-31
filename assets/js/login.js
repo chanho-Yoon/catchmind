@@ -8,8 +8,8 @@ const nickname = localStorage.getItem(NICKNAME);
 
 // login 처리
 const logIn = nickname => {
-  const socket = io('/');
-  socket.emit('setNickname', { nickname });
+  window.socket = io('/');
+  window.emit(window.events.setNickname, { nickname });
 };
 
 if (nickname === null) {
