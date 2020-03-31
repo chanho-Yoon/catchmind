@@ -1,3 +1,5 @@
+import { initSockets } from './sockets';
+
 const body = document.querySelector('body');
 const loginForm = document.getElementById('jsLogin');
 
@@ -8,8 +10,9 @@ const nickname = localStorage.getItem(NICKNAME);
 
 // login 처리
 const logIn = nickname => {
-  window.socket = io('/');
-  window.emit(window.events.setNickname, { nickname });
+  const socket = io('/');
+  socket.emit(window.events.setNickname, { nickname });
+  initSockets(socket);
 };
 
 if (nickname === null) {
