@@ -5,10 +5,12 @@ const sendMessage = document.getElementById('jsSendMessage');
 
 const appendMessage = (text, nickname) => {
   const li = document.createElement('li');
+  li.className = `${nickname ? 'out' : 'self'}`;
   li.innerHTML = `
-    <spna class="author">${nickname ? nickname : 'You'} : </span> ${text}
+  <span class="author ${nickname ? 'out' : 'self'}">${nickname ? nickname + ' : ' + text : text} </span> 
   `;
   messages.appendChild(li);
+  messages.scrollTop = messages.scrollHeight;
 };
 
 const handleSendMessage = event => {
