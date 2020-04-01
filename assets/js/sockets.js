@@ -1,4 +1,5 @@
 import { handleNewUser, handleByeUser } from './notifications';
+import { handleReceiveMessage } from './chat';
 
 let socket = null;
 
@@ -12,4 +13,5 @@ export const initSockets = aSocket => {
   updateSocket(aSocket);
   aSocket.on(events.newUser, handleNewUser);
   aSocket.on(events.byeUser, handleByeUser);
+  aSocket.on(events.receiveMessage, handleReceiveMessage); //본인 이외 다른 유저에게 보여질 메시지 소켓
 };
