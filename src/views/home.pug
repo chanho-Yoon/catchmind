@@ -7,12 +7,15 @@ html(lang="ko")
 
     title Catch Mind
   body
+    #jsNotifications
     .loginBox
       form#jsLogin
         input(placeholder="닉네임!", type="text")
     .gameContainer#jsGame
-      h1 로그인 중
-      #jsNotifications
+      .chat
+        ul.chat__messages#jsMessages
+        form.chat__form#jsSendMessage
+          input(placeholder="메시지 입력" type="text")
 
     script.
       window.events = !{events}
