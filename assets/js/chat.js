@@ -16,14 +16,13 @@ const appendMessage = (text, nickname) => {
 const handleSendMessage = event => {
   event.preventDefault();
   const input = sendMessage.querySelector('input');
-  const value = input.value;
+  const message = input.value;
   input.value = '';
-  appendMessage(value);
+  appendMessage(message);
 
   // 나 이외 전체 사용자에게 broadcast
   const socket = getSocket();
-  socket.message = value;
-  socket.emit(window.events.setMessage, { message: value });
+  socket.emit(window.events.setMessage, { message: message });
 };
 
 if (sendMessage) {
