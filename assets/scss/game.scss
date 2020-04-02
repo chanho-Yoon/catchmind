@@ -1,0 +1,75 @@
+.gameContainer {
+  display: flex;
+  width: 70%;
+  .canvas {
+    width: 700px;
+    height: 600px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: url(../cursor/cursor.cur), auto;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .controls {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .controls .controls__btns {
+      margin-bottom: 30px;
+    }
+    .controls__btns button {
+      all: unset;
+      cursor: pointer;
+      background-color: white;
+      padding: 5px 0px;
+      width: 80px;
+      text-align: center;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.8);
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .controls__btns button:active {
+      transform: scale(0.94);
+    }
+    .controls .controls__colors {
+      display: flex;
+    }
+    .controls__colors .controls__color {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+    }
+
+    .controls .controls__range {
+      margin-bottom: 25px;
+    }
+
+    /* 현재 선택된 색상  */
+    .choice__colors {
+      display: flex;
+      align-items: center;
+    }
+    .choice__colors span {
+      margin-right: 10px;
+    }
+
+    .choice__color {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
