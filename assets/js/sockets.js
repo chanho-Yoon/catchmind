@@ -1,5 +1,6 @@
 import { handleNewUser, handleByeUser } from './notifications';
 import { handleReceiveMessage } from './chat';
+import { handleBeganPath, handleStrokedPath } from './paint';
 
 let socket = null;
 
@@ -14,4 +15,6 @@ export const initSockets = aSocket => {
   aSocket.on(events.newUser, handleNewUser);
   aSocket.on(events.byeUser, handleByeUser);
   aSocket.on(events.receiveMessage, handleReceiveMessage); //본인 이외 다른 유저에게 보여질 메시지 소켓
+  aSocket.on(events.beganPath, handleBeganPath); // 마우스 업상태에서 시작좌표 지점
+  aSocket.on(events.strokedPath, handleStrokedPath); // 마우스 다운상태에서 라인 그리기
 };
