@@ -47,10 +47,15 @@ function startPainting() {
   painting = true;
 }
 
+const socketSetColor = color => {
+  ctx.strokeStyle = color;
+  document.getElementById('jsChoiceColor').style.backgroundColor = color;
+};
+
 function handleColorClick(event) {
   getColor = event.target.style.backgroundColor;
-  ctx.strokeStyle = getColor;
-  document.getElementById('jsChoiceColor').style.backgroundColor = getColor;
+  socketSetColor(getColor);
+  getSocket().emit(window.events.getColor, { getColor });
 }
 //오른쪽 마우스 클릭 막기
 function handleRightClick(event) {
@@ -66,9 +71,15 @@ if (canvas) {
 //controls__colors
 Array.from(colors).forEach(color => color.addEventListener('click', handleColorClick));
 
-function handleClickJsmode() {
+const socketSetFillColor = getColor => {
   ctx.fillStyle = getColor;
   ctx.fillRect(0, 0, 700, 600);
+};
+
+// canvas 배경 컬러
+function handleClickJsmode() {
+  socketSetFillColor(getColor);
+  getSocket().emit(window.events.getFillColor, { getColor });
 }
 
 if (jsmode) {
@@ -77,3 +88,5 @@ if (jsmode) {
 
 export const handleBeganPath = ({ x, y }) => beginPath(x, y);
 export const handleStrokedPath = ({ x, y }) => strokedPath(x, y);
+export const handleSetColor = ({ color }) => socketSetColor(color);
+export const handleSetFillColor = ({ color }) => socketSetFillColor(color);
