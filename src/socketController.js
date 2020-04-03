@@ -14,6 +14,15 @@ const socketController = socket => {
   socket.on(events.setMessage, ({ message }) => {
     broadcast(events.receiveMessage, { message, nickname: socket.nickname });
   });
+
+  // 실시간 paint 시작좌표
+  socket.on(events.beginPath, ({ x, y }) => {
+    broadcast(events.beganPath, { x, y });
+  });
+  // 실시간 paint 그리기
+  socket.on(events.strokePath, ({ x, y }) => {
+    broadcast(events.strokedPath, { x, y });
+  });
 };
 
 export default socketController;
