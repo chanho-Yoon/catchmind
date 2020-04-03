@@ -23,6 +23,14 @@ const socketController = socket => {
   socket.on(events.strokePath, ({ x, y }) => {
     broadcast(events.strokedPath, { x, y });
   });
+  // 실시간 color
+  socket.on(events.getColor, ({ getColor }) => {
+    broadcast(events.setColor, { color: getColor });
+  });
+  // 실시간 background color
+  socket.on(events.getFillColor, ({ getColor }) => {
+    broadcast(events.setFillColor, { color: getColor });
+  });
 };
 
 export default socketController;
