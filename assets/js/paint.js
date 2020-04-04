@@ -47,7 +47,7 @@ function startPainting() {
   painting = true;
 }
 
-const socketSetColor = color => {
+const socketSetColor = (color) => {
   ctx.strokeStyle = color;
   document.getElementById('jsChoiceColor').style.backgroundColor = color;
 };
@@ -69,9 +69,9 @@ if (canvas) {
   canvas.addEventListener('contextmenu', handleRightClick);
 }
 //controls__colors
-Array.from(colors).forEach(color => color.addEventListener('click', handleColorClick));
+Array.from(colors).forEach((color) => color.addEventListener('click', handleColorClick));
 
-const socketSetFillColor = getColor => {
+const socketSetFillColor = (getColor) => {
   ctx.fillStyle = getColor;
   ctx.fillRect(0, 0, 700, 600);
 };
