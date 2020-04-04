@@ -13,6 +13,7 @@ html(lang="ko")
         input(placeholder="닉네임!", type="text")
     .gameContainer#jsGame
       .main
+        .player__board#jsPlayerBoard
         canvas#jsCanvas.canvas  
         .controls
           .choice__colors
@@ -34,7 +35,6 @@ html(lang="ko")
         ul.chat__messages#jsMessages
         form.chat__form#jsSendMessage
           input(placeholder="메시지 입력" type="text")
-
     script.
       window.events = !{events}
     script(src="/socket.io/socket.io.js")
