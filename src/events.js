@@ -12,7 +12,8 @@ const events = {
   getColor: 'getColor',
   setColor: 'setColor',
   getFillColor: 'getFillColor', // socketController에서 emit한 color 가져옴
-  setFillColor: 'setFillColor' // socketController에서 broadcast하여 다른 유저에게 sockets.js로 보냄
+  setFillColor: 'setFillColor', // socketController에서 broadcast하여 다른 유저에게 sockets.js로 보냄
+  playerUpdate: 'playterUpdate',
 };
 
 export default events;
