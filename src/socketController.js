@@ -4,6 +4,7 @@ import { chooseWord } from './words';
 let sockets = [];
 let inProgress = false; //false -> 게임 시작
 let word = null;
+let painter = null; // 문제를 내는 출제자
 
 //게임 리더 정하는 랜덤함수
 const chooseLeader = () => sockets[Math.floor(Math.random() * sockets.length)];
@@ -16,21 +17,38 @@ const socketController = (socket, io) => {
   const startGame = () => {
     if (inProgress === false) {
       inProgress = true;
-      const painter = chooseLeader(); //리더 랜덤 선택
+      painter = chooseLeader(); //리더 랜덤 선택
       word = chooseWord(); // 단어 랜덤 선택
+      setTimeout(() => {
+        allBroadcast(events.gameStarted), io.to(painter.id).emit(events.leaderNotification, { word });
+      }, 2000);
     }
   };
-
+  const endGame = () => {
+    inProgress = false;
+    allBroadcast(events.gameEnded);
+  };
   socket.on(events.setNickname, ({ nickname }) => {
     socket.nickname = nickname;
     sockets.push({ id: socket.id, points: 0, nickname: nickname });
     broadcast(events.newUser, { nickname });
     sendPlayerUpdate();
-    startGame();
+    if (sockets.length === 2) {
+      startGame();
+    }
   });
-  socket.on(events.disconnect, ({ nickname }) => {
+  socket.on(events.disconnect, () => {
     // disconnect 한 socket의 nickname을 가지고 있지 않은 socket만 찾음
     sockets = sockets.filter((aSocket) => aSocket.id !== socket.id);
+
+    if (sockets.length === 1) {
+      endGame();
+    } else if (painter) {
+      //문제 출제자가 접속을 끊고 나간다면 게임 종료
+      if (painter.id === socket.id) {
+        endGame();
+      }
+    }
     broadcast(events.byeUser, { nickname: socket.nickname });
     sendPlayerUpdate();
   });
