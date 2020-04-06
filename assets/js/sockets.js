@@ -1,7 +1,7 @@
 import { handleNewUser, handleByeUser } from './notifications';
 import { handleReceiveMessage } from './chat';
 import { handleBeganPath, handleStrokedPath, handleSetColor, handleSetFillColor } from './paint';
-import { handlePlayerUpdate } from './players';
+import { handlePlayerUpdate, handleGameStart, handleLeaderNotification, handleGameEnded } from './players';
 
 let socket = null;
 
@@ -19,4 +19,7 @@ export const initSockets = (aSocket) => {
   socket.on(events.setColor, handleSetColor); // 라인 컬러
   socket.on(events.setFillColor, handleSetFillColor); // 배경 컬러
   socket.on(events.playerUpdate, handlePlayerUpdate);
+  socket.on(events.gameStarted, handleGameStart);
+  socket.on(events.leaderNotification, handleLeaderNotification);
+  socket.on(events.gameEnded, handleGameEnded);
 };
