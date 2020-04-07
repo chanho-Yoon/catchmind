@@ -13,7 +13,7 @@ const appendMessage = (text, nickname) => {
   messages.scrollTop = messages.scrollHeight;
 };
 
-const handleSendMessage = event => {
+const handleSendMessage = (event) => {
   event.preventDefault();
   const input = sendMessage.querySelector('input');
   const message = input.value;
@@ -33,3 +33,7 @@ if (sendMessage) {
 export const handleReceiveMessage = ({ nickname, message }) => {
   appendMessage(message, nickname);
 };
+
+// 방장은 말을 하면 안됨
+export const disableChat = () => (sendMessage.style.display = 'none');
+export const enableChat = () => (sendMessage.style.display = 'flex');
