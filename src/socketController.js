@@ -19,9 +19,10 @@ const socketController = (socket, io) => {
       inProgress = true;
       painter = chooseLeader(); //리더 랜덤 선택
       word = chooseWord(); // 단어 랜덤 선택
+      allBroadcast(events.gameStarting);
       setTimeout(() => {
         allBroadcast(events.gameStarted), io.to(painter.id).emit(events.leaderNotification, { word });
-      }, 2000);
+      }, 5000);
     }
   };
   const endGame = () => {
