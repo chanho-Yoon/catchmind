@@ -28,6 +28,7 @@ const socketController = (socket, io) => {
   const endGame = () => {
     inProgress = false;
     allBroadcast(events.gameEnded);
+    setTimeout(() => startGame(), 2000);
   };
   const addPoint = (id) => {
     sockets = sockets.map((socket) => {
@@ -68,7 +69,7 @@ const socketController = (socket, io) => {
   socket.on(events.setMessage, ({ message }) => {
     if (message === word) {
       allBroadcast(events.answerNotification, { message: `정답자는 ${socket.nickname} 입니다, 정답은 [ ${word} ]` });
-      addPoint(socket.id);
+      setTimeout(() => addPoint(socket.id), 3000);
     } else {
       broadcast(events.receiveMessage, { message, nickname: socket.nickname });
     }
