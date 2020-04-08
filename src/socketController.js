@@ -29,6 +29,17 @@ const socketController = (socket, io) => {
     inProgress = false;
     allBroadcast(events.gameEnded);
   };
+  const addPoint = (id) => {
+    sockets = sockets.map((socket) => {
+      if (socket.id === id) {
+        socket.points += 10;
+      }
+      return socket;
+    });
+    sendPlayerUpdate();
+    endGame();
+  };
+
   socket.on(events.setNickname, ({ nickname }) => {
     socket.nickname = nickname;
     sockets.push({ id: socket.id, points: 0, nickname: nickname });
@@ -55,7 +66,12 @@ const socketController = (socket, io) => {
   });
   // 유저가 메시지 입력하면 자신 이외 사용자에게
   socket.on(events.setMessage, ({ message }) => {
-    broadcast(events.receiveMessage, { message, nickname: socket.nickname });
+    if (message === word) {
+      allBroadcast(events.answerNotification, { message: `정답자는 ${socket.nickname} 입니다, 정답은 [ ${word} ]` });
+      addPoint(socket.id);
+    } else {
+      broadcast(events.receiveMessage, { message, nickname: socket.nickname });
+    }
   });
 
   // 실시간 paint 시작좌표
