@@ -18,6 +18,7 @@ const events = {
   leaderNotification: 'leaderNotification',
   gameEnded: 'gameEnded',
   gameStarting: 'gameStarting',
+  answerNotification: 'answerNotification',
 };
 
 export default events;
