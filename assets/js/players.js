@@ -1,5 +1,5 @@
 import { disableCanvas, hideControls, enableCanvas, showControls, showWord, hideWord, resetCanvas } from './paint';
-import { disableChat } from './chat';
+import { disableChat, enableChat } from './chat';
 
 const board = document.getElementById('jsPlayerBoard');
 const notifs = document.getElementById('jsWords');
@@ -44,4 +44,10 @@ export const handleGameEnded = () => {
 export const handleGameStarting = () => {
   showWord();
   setNotifs('곧 게임이 시작 됩니다.');
+};
+
+// 정답 나왔을 시 알림
+export const handleAnswerNotification = ({ message }) => {
+  showWord();
+  setNotifs(`<span>${message}</span>`);
 };
