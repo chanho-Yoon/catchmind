@@ -1,14 +1,22 @@
 import { handleNewUser, handleByeUser } from './notifications';
 import { handleReceiveMessage } from './chat';
 import { handleBeganPath, handleStrokedPath, handleSetColor, handleSetFillColor } from './paint';
-import { handlePlayerUpdate, handleGameStart, handleLeaderNotification, handleGameEnded, handleGameStarting, handleAnswerNotification } from './players';
+import {
+  handlePlayerUpdate,
+  handleGameStart,
+  handleLeaderNotification,
+  handleGameEnded,
+  handleGameStarting,
+  handleAnswerNotification,
+  handleShowTime
+} from './players';
 
 let socket = null;
 
 export const getSocket = () => socket;
 
 // 로그인 한 시점에 socket을 시작하도록
-export const initSockets = (aSocket) => {
+export const initSockets = aSocket => {
   const { events } = window;
   socket = aSocket;
   socket.on(events.newUser, handleNewUser);
@@ -24,4 +32,5 @@ export const initSockets = (aSocket) => {
   socket.on(events.gameEnded, handleGameEnded);
   socket.on(events.gameStarting, handleGameStarting);
   socket.on(events.answerNotification, handleAnswerNotification);
+  socket.on(events.showTime, handleShowTime);
 };
