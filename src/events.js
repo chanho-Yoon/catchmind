@@ -19,6 +19,7 @@ const events = {
   gameEnded: 'gameEnded',
   gameStarting: 'gameStarting',
   answerNotification: 'answerNotification',
+  showTime: 'showTime'
 };
 
 export default events;
