@@ -6,6 +6,7 @@ const ctx = canvas.getContext('2d');
 const colors = document.getElementsByClassName('jsColor');
 const jsmode = document.getElementById('jsMode');
 const canvasWord = document.getElementById('jsWords');
+const timeCount = document.getElementById('jsShowTime');
 //FILL 눌렀을 시 해당되는 컬러를 적용하기 위한 변수
 let getColor = null;
 
@@ -48,7 +49,7 @@ function startPainting() {
   painting = true;
 }
 
-const socketSetColor = (color) => {
+const socketSetColor = color => {
   ctx.strokeStyle = color;
   document.getElementById('jsChoiceColor').style.backgroundColor = color;
 };
@@ -63,9 +64,9 @@ function handleRightClick(event) {
   event.preventDefault();
 }
 //controls__colors
-Array.from(colors).forEach((color) => color.addEventListener('click', handleColorClick));
+Array.from(colors).forEach(color => color.addEventListener('click', handleColorClick));
 
-const socketSetFillColor = (getColor) => {
+const socketSetFillColor = getColor => {
   ctx.fillStyle = getColor;
   ctx.fillRect(0, 0, 700, 600);
 };
@@ -101,6 +102,8 @@ export const hideControls = () => (controls.style.opacity = 0);
 export const showControls = () => (controls.style.opacity = 1);
 export const hideWord = () => (canvasWord.style.display = 'none');
 export const showWord = () => (canvasWord.style.display = 'flex');
+export const showTime = () => (timeCount.style.display = 'flex');
+export const hideTime = () => (timeCount.style.display = 'none');
 export const resetCanvas = () => socketSetFillColor('#fff');
 if (canvas) {
   jsmode.addEventListener('click', handleClickJsmode);
