@@ -9,21 +9,21 @@ sass.compiler = require('node-sass');
 
 const paths = {
   styles: {
-    src: 'assets/scss/styles.scss',
-    dest: 'src/static/styles',
-    watch: 'assets/scss/**/*.scss'
+    src: 'src/assets/scss/styles.scss',
+    dest: 'src/static/',
+    watch: 'src/assets/scss/**/*.scss'
   },
   js: {
-    src: 'assets/js/main.js',
-    dest: 'src/static/js',
-    watch: 'assets/js/**/*.js'
+    src: 'src/assets/js/main.js',
+    dest: 'src/static/',
+    watch: 'src/assets/js/**/*.js'
   }
 };
 const clean = () => del(['src/static']);
 
 const styles = () =>
   gulp
-    .src(paths.styles.src)
+    .src(paths.styles.src, { allowEmpty: true })
     .pipe(sass())
     .pipe(
       autoprefixer({
@@ -36,7 +36,7 @@ const styles = () =>
 
 const js = () =>
   gulp
-    .src(paths.js.src)
+    .src(paths.js.src, { allowEmpty: true })
     .pipe(
       browserify({
         transform: [
@@ -53,7 +53,8 @@ const watchFiles = () => {
   gulp.watch(paths.js.watch, js);
 };
 
-const dev = gulp.series(clean, styles, js, watchFiles);
+// const dev = gulp.series(clean, styles, js, watchFiles);
+const dev = gulp.series(clean, styles, js);
 
 export const build = gulp.series(clean, styles, js);
 
