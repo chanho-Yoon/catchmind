@@ -7,11 +7,15 @@
   "author": "chanho-Yoon <chanho.yoon.1993@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.3",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/runtime": "^7.8.7",
     "babelify": "^10.0.0",
     "del": "^4.1.0",
+    "dotenv": "^8.2.0",
     "eslint": "^5.16.0",
     "express": "^4.16.4",
     "gulp": "^4.0.0",
@@ -27,7 +31,12 @@
   },
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/server.js --ignore assets/ --ignore src/static",
-    "dev:assets": "gulp"
+    "dev:assets": "gulp",
+    "copyAll": "mkdir build && cp -R src/static build && cp -R src/views build",
+    "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','gulpfile.babel.js'",
+    "build:assets": "cd src && gulp",
+    "build": "npm run copyAll && npm run build:server && npm run build:assets",
+    "start": "node build/init.js"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^14.0.0",
