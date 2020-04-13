@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/server.js --ignore assets/ --ignore src/static",
-    "dev:assets": "gulp",
+    "dev:assets": "cd src && gulp",
     "copyAll": "mkdir build && cp -R src/static build && cp -R src/views build",
     "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','gulpfile.babel.js'",
     "build:assets": "cd src && gulp",
