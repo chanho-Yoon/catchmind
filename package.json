@@ -36,7 +36,7 @@
     "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','gulpfile.babel.js'",
     "build:assets": "cd src && gulp",
     "build": "npm run copyAll && npm run build:server && npm run build:assets",
-    "start": "node build/init.js"
+    "start": "node build/server.js"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^14.0.0",
