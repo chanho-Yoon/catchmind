@@ -103,7 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-src/static
+static
 
 yarn.lock
 build
