@@ -5,7 +5,6 @@ let sockets = [];
 let inProgress = false; //false -> 게임 시작
 let word = null;
 let painter = null; // 문제를 내는 출제자
-let timeout = null; // 게임 시간제한
 let timeCount = 50; // 게임 남은 시간 50초
 let intervalStop = null; // 외부에서 setInterval 정지 시키기 위한 변수 선언
 //게임 리더 정하는 랜덤함수
@@ -27,25 +26,23 @@ const socketController = (socket, io) => {
         setTimeout(() => {
           allBroadcast(events.gameStarted), io.to(painter.id).emit(events.leaderNotification, { word });
           intervalStop = setInterval(countTime, 1000);
-          timeout = setTimeout(endGame, 50000);
         }, 5000);
       }
     }
   };
   // 게임 방장 진행 남은시간
   const countTime = () => {
-    if (timeCount !== 1) {
+    if (timeCount !== 0) {
       timeCount--;
       allBroadcast(events.showTime, { timeCount });
     } else {
-      clearInterval(intervalStop);
+      endGame();
     }
   };
   const endGame = () => {
     inProgress = false;
     allBroadcast(events.gameEnded);
-    if (timeout !== null) {
-      clearTimeout(timeout);
+    if (intervalStop !== null) {
       clearInterval(intervalStop);
     }
     setTimeout(() => startGame(), 2000);
@@ -59,7 +56,6 @@ const socketController = (socket, io) => {
     });
     sendPlayerUpdate();
     endGame();
-    clearTimeout(timeout);
   };
 
   socket.on(events.setNickname, ({ nickname }) => {
@@ -67,14 +63,13 @@ const socketController = (socket, io) => {
     sockets.push({ id: socket.id, points: 0, nickname: nickname });
     broadcast(events.newUser, { nickname });
     sendPlayerUpdate();
-    if (sockets.length === 2) {
+    if (sockets.length >= 2) {
       startGame();
     }
   });
   socket.on(events.disconnect, () => {
     // disconnect 한 socket의 nickname을 가지고 있지 않은 socket만 찾음
     sockets = sockets.filter(aSocket => aSocket.id !== socket.id);
-
     if (sockets.length === 1) {
       endGame();
     } else if (painter) {
@@ -83,13 +78,13 @@ const socketController = (socket, io) => {
         endGame();
       }
     }
-    clearInterval(intervalStop);
     broadcast(events.byeUser, { nickname: socket.nickname });
     sendPlayerUpdate();
   });
   // 유저가 메시지 입력하면 자신 이외 사용자에게
   socket.on(events.setMessage, ({ message }) => {
     if (message === word) {
+      broadcast(events.receiveMessage, { message, nickname: socket.nickname });
       allBroadcast(events.answerNotification, { message: `정답자는 ${socket.nickname} 입니다, 정답은 [ ${word} ]` });
       clearInterval(intervalStop);
       setTimeout(() => addPoint(socket.id), 3000);
