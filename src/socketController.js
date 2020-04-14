@@ -18,7 +18,7 @@ const socketController = (socket, io) => {
   const startGame = () => {
     if (sockets.length > 1) {
       if (inProgress === false) {
-        timeCount = 50;
+        timeCount = 90;
         inProgress = true;
         painter = chooseLeader(); //리더 랜덤 선택
         word = chooseWord(); // 단어 랜덤 선택
